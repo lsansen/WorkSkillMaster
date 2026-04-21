@@ -97,11 +97,14 @@ const SkillPackageFramework: React.FC<SkillPackageFrameworkProps> = ({
       return
     }
     
-    // 检查AI模型状态
-    const hasModel = checkAIModelStatus()
-    if (!hasModel) {
-      alert('请先在设置页面配置AI模型，然后再使用此功能。')
-      return
+    // 检查AI模型状态（任务管理助手不需要AI）
+    const noAISkills = ['task-management']
+    if (!noAISkills.includes(skillPackage.id)) {
+      const hasModel = checkAIModelStatus()
+      if (!hasModel) {
+        alert('请先在设置页面配置AI模型，然后再使用此功能。')
+        return
+      }
     }
     
     setIsGenerating(true)

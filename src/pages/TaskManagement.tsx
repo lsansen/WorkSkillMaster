@@ -145,9 +145,7 @@ const TaskManagement: React.FC = () => {
   };
 
   const handleGenerate = async (params: any): Promise<string> => {
-    // 模拟AI生成内容
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    // 计算任务相关数据
     const daysUntilDeadline = calculateDaysUntil(params.deadline);
     const totalAvailableHours = daysUntilDeadline * params.availableHoursPerDay;
     const tasks = generateTasks(params.taskComplexity);
@@ -235,7 +233,7 @@ ${Array.from({ length: daysUntilDeadline }, (_, i) => {
 - **风险3**：需求变更 → 建立变更管理机制，评估影响
 - **风险4**：技术难题 → 提前研究和准备，寻求专家帮助
 
-（注：这是由AI助手生成的${outputFormatText}任务计划，建议根据实际情况进行调整和完善。）`;
+（注：这是根据您的输入生成的${outputFormatText}任务计划，建议根据实际情况进行调整和完善。）`;
   };
 
   return (

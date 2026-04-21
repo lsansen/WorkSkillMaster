@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAI } from '../contexts/AIModelContext'
 
 const Home: React.FC = () => {
   const navigate = useNavigate()
+  const { hasAIModel } = useAI()
   const [skillPackages, setSkillPackages] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -82,6 +84,17 @@ const Home: React.FC = () => {
     navigate(path)
   }
 
+  // 过滤技能包，根据AI模型状态
+  const filteredSkillPackages = skillPackages.filter(skill => {
+    // 不需要AI的技能包
+    const noAISkills = ['task-management']
+    if (noAISkills.includes(skill.id)) {
+      return true
+    }
+    // 需要AI的技能包，只有在有AI模型时显示
+    return hasAIModel
+  })
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -96,13 +109,40 @@ const Home: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           技能包
         </h2>
-        <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
-          新建技能包
-        </button>
+        {hasAIModel && (
+          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+            新建技能包
+          </button>
+        )}
       </div>
       
+      {!hasAIModel && (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-yellow-800 dark:text-yellow-300">
+                未配置AI模型
+              </h3>
+              <div className="mt-2 text-sm text-yellow-700 dark:text-yellow-400">
+                <p>
+                  您尚未配置AI模型，只能使用不需要AI的基础功能。
+                </p>
+                <p className="mt-1">
+                  请前往设置页面配置AI模型，以使用完整功能。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {skillPackages.map((skill) => (
+        {filteredSkillPackages.map((skill) => (
           <div key={skill.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center mb-4">
               <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-2xl mr-4">
