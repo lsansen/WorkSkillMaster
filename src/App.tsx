@@ -1,21 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout.tsx';
-import Home from './pages/Home.tsx';
-import Settings from './pages/Settings.tsx';
-import History from './pages/History.tsx';
-import Models from './pages/Models.tsx';
-import Stats from './pages/Stats.tsx';
-import EmailMaster from './pages/EmailMaster.tsx';
-import MeetingNotesExpert from './pages/MeetingNotesExpert.tsx';
-import ReportGenerator from './pages/ReportGenerator.tsx';
-import PPTOutline from './pages/PPTOutline.tsx';
-import DataAnalyst from './pages/DataAnalyst.tsx';
-import TaskManagement from './pages/TaskManagement.tsx';
-import CustomSkills from './pages/CustomSkills.tsx';
-import RecruitmentAssistant from './pages/RecruitmentAssistant.tsx';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { OfflineProvider } from './contexts/OfflineContext';
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import Settings from './pages/Settings'
+import History from './pages/History'
+import Models from './pages/Models'
+import Stats from './pages/Stats'
+import EmailMaster from './pages/EmailMaster'
+import MeetingNotesExpert from './pages/MeetingNotesExpert'
+import ReportGenerator from './pages/ReportGenerator'
+import PPTOutline from './pages/PPTOutline'
+import DataAnalyst from './pages/DataAnalyst'
+import TaskManagement from './pages/TaskManagement'
+import CustomSkills from './pages/CustomSkills'
+import RecruitmentAssistant from './pages/RecruitmentAssistant'
+import { ThemeProvider } from './contexts/ThemeContext'
+import { OfflineProvider } from './contexts/OfflineContext'
 
 function App() {
   return (

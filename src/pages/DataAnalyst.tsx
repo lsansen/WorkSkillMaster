@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework';
+import React, { useState } from 'react'
+import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework'
 
 const DataAnalyst: React.FC = () => {
   const [dataPreview, setDataPreview] = useState<string>('');

@@ -1,6 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Settings: React.FC = () => {
+  const [apiKeys, setApiKeys] = useState({
+    openai: localStorage.getItem('openaiApiKey') || '',
+    deepseek: localStorage.getItem('deepseekApiKey') || ''
+  })
+
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setApiKeys(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSaveSettings = () => {
+    localStorage.setItem('openaiApiKey', apiKeys.openai)
+    localStorage.setItem('deepseekApiKey', apiKeys.deepseek)
+    alert('设置保存成功！')
+  }
   return (
     <div>
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
@@ -59,6 +77,9 @@ const Settings: React.FC = () => {
             </label>
             <input 
               type="password" 
+              name="openai"
+              value={apiKeys.openai}
+              onChange={handleApiKeyChange}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
               placeholder="sk-..."
             />
@@ -70,12 +91,18 @@ const Settings: React.FC = () => {
             </label>
             <input 
               type="password" 
+              name="deepseek"
+              value={apiKeys.deepseek}
+              onChange={handleApiKeyChange}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
               placeholder="sk-..."
             />
           </div>
           
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+          <button 
+            onClick={handleSaveSettings}
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
             保存设置
           </button>
         </div>

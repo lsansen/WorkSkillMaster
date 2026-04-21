@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SkillPackageFramework } from '../components/SkillPackageFramework'
+import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework'
 
 const RecruitmentAssistant: React.FC = () => {
   const [formData, setFormData] = useState({

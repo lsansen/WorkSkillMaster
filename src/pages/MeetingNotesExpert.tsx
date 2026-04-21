@@ -1,5 +1,5 @@
-import React from 'react';
-import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework';
+import React from 'react'
+import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework'
 
 const MeetingNotesExpert: React.FC = () => {
   const skillPackage = {

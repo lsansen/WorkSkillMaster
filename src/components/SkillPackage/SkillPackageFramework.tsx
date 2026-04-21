@@ -54,6 +54,16 @@ const SkillPackageFramework: React.FC<SkillPackageFrameworkProps> = ({
   }
 
   const handleFileUpload = (id: string, file: File) => {
+    // 限制文件大小为10MB
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+    if (file.size > MAX_FILE_SIZE) {
+      setErrors(prev => ({
+        ...prev,
+        [id]: `文件大小不能超过10MB，当前文件大小: ${(file.size / (1024 * 1024)).toFixed(2)}MB`
+      }))
+      return
+    }
+    
     setFormData(prev => ({ ...prev, [id]: file }))
     // 清除该字段的错误
     if (errors[id]) {
@@ -184,11 +194,28 @@ const SkillPackageFramework: React.FC<SkillPackageFrameworkProps> = ({
         )
       case 'file':
         return (
-          <div className={`border-2 rounded-lg p-6 text-center transition-colors ${
-            errors[param.id] 
-              ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
-              : 'border-dashed border-gray-300 dark:border-gray-600 hover:border-primary-500'
-          }`}>
+          <div 
+            className={`border-2 rounded-lg p-6 text-center transition-colors ${
+              errors[param.id] 
+                ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
+                : 'border-dashed border-gray-300 dark:border-gray-600 hover:border-primary-500'
+            }`}
+            onDragOver={(e) => {
+              e.preventDefault();
+              e.currentTarget.classList.add('border-primary-500');
+            }}
+            onDragLeave={(e) => {
+              e.preventDefault();
+              e.currentTarget.classList.remove('border-primary-500');
+            }}
+            onDrop={(e) => {
+              e.preventDefault();
+              e.currentTarget.classList.remove('border-primary-500');
+              if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFileUpload(param.id, e.dataTransfer.files[0]);
+              }
+            }}
+          >
             <input
               type="file"
               id={param.id}
