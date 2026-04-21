@@ -54,7 +54,7 @@ start "前端服务" cmd /c "npm run dev"
 :: 显示状态
 echo === 服务启动完成 ===
 echo 后端服务运行在: http://localhost:8000
-echo 前端服务运行在: http://localhost:3000
+echo 前端服务运行在: http://localhost:5173
 echo.
 echo 服务已在后台启动
  echo 按任意键退出此窗口
