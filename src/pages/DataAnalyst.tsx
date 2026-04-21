@@ -176,7 +176,7 @@ const DataAnalyst: React.FC = () => {
 ## 3. 分析发现
 ### 3.1 主要发现
 - 数据整体呈现${params.analysisType === 'trend' ? '上升' : '稳定'}趋势
-- ${numericFields.length > 0 ? `${numericFields[0]}的波动范围较大，从${Math.min(...rows.map(r => parseFloat(r[0]))}到${Math.max(...rows.map(r => parseFloat(r[0]))}` : '数据分布较为均匀'}
+- ${numericFields.length > 0 ? `${numericFields[0]}的波动范围较大，从${Math.min(...rows.map(r => parseFloat(r[0])))}到${Math.max(...rows.map(r => parseFloat(r[0])))}` : '数据分布较为均匀'}
 - ${params.analysisType === 'comparative' ? '不同类别的数据存在显著差异' : '数据之间存在较强的相关性'}
 
 ### 3.2 详细分析

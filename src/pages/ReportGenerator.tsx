@@ -26,6 +26,14 @@ const ReportGenerator: React.FC = () => {
         ]
       },
       {
+        id: 'referenceFile',
+        name: 'referenceFile',
+        type: 'file',
+        label: '参考文件',
+        description: '上传参考文件（支持TXT、MD、DOCX格式）',
+        required: false
+      },
+      {
         id: 'reportPeriod',
         name: 'reportPeriod',
         type: 'text',
@@ -138,6 +146,11 @@ const ReportGenerator: React.FC = () => {
     const issues = params.issuesChallenges ? params.issuesChallenges.split('\n').filter(Boolean) : [];
     const achievementsList = params.achievements ? params.achievements.split('\n').filter(Boolean) : [];
 
+    let referenceText = '';
+    if (params.referenceFile) {
+      referenceText = '（参考了上传的文件内容）';
+    }
+
     return `# ${reportTypeText}：${params.reportPeriod}
 
 ## 基本信息
@@ -178,7 +191,7 @@ ${achievementsList.length > 0 ?
 汇报人：${params.reporterName}
 日期：${new Date().toLocaleDateString('zh-CN')}
 
-（注：这是由AI助手生成的${reportStyleText}${reportTypeText}，建议根据实际情况进行调整和完善。）`;
+（注：这是由AI助手生成的${reportStyleText}${reportTypeText}${referenceText}，建议根据实际情况进行调整和完善。）`;
   };
 
   return (

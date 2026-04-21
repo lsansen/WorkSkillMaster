@@ -21,6 +21,14 @@ const PPTOutline: React.FC = () => {
         placeholder: '例如：项目进度汇报、产品发布会、培训课程'
       },
       {
+        id: 'referenceFile',
+        name: 'referenceFile',
+        type: 'file',
+        label: '参考文件',
+        description: '上传参考文件（支持TXT、MD格式）',
+        required: false
+      },
+      {
         id: 'audience',
         name: 'audience',
         type: 'text',
@@ -120,6 +128,11 @@ const PPTOutline: React.FC = () => {
     }[params.outputFormat] || '详细大纲';
 
     const keyPoints = params.keyPoints.split('\n').filter(Boolean);
+
+    let referenceText = '';
+    if (params.referenceFile) {
+      referenceText = '（参考了上传的文件内容）';
+    }
     
     return `# PPT大纲：${params.presentationTopic}
 
@@ -173,7 +186,7 @@ ${slideCount}. **问答环节**：互动交流
 - 准备详细的演讲脚本
 - 预留足够时间用于问答
 
-（注：这是由AI助手生成的${formatText}，建议根据实际情况进行调整和完善。）`;
+（注：这是由AI助手生成的${formatText}${referenceText}，建议根据实际情况进行调整和完善。）`;
   };
 
   return (

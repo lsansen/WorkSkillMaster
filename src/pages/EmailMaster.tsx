@@ -29,6 +29,14 @@ const EmailMaster: React.FC = () => {
         ]
       },
       {
+        id: 'referenceFile',
+        name: 'referenceFile',
+        type: 'file',
+        label: '参考文件',
+        description: '上传参考文件（TXT、MD格式）',
+        required: false
+      },
+      {
         id: 'recipient',
         name: 'recipient',
         type: 'text',
@@ -102,11 +110,16 @@ const EmailMaster: React.FC = () => {
       'casual': '轻松随意'
     }[params.tone] || '专业正式';
 
+    let referenceText = '';
+    if (params.referenceFile) {
+      referenceText = '（参考了上传的文件内容）';
+    }
+
     return `尊敬的${params.recipient}：
 
 您好！
 
-这是一封关于"${params.subject}"的${emailTypeText}。
+这是一封关于"${params.subject}"的${emailTypeText}。${referenceText}
 
 ${params.contentPoints.split('\n').filter(Boolean).map((point: string, index: number) => `${index + 1}. ${point.replace(/^[-*•]\s*/, '')}`).join('\n')}
 

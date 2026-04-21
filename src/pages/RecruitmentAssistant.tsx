@@ -8,7 +8,8 @@ const RecruitmentAssistant: React.FC = () => {
     interview_type: 'technical',
     question_count: 5,
     difficulty: 'medium',
-    output_format: 'markdown'
+    output_format: 'markdown',
+    resumeFile: null
   })
 
   const [result, setResult] = useState<string>('')
@@ -107,6 +108,15 @@ const RecruitmentAssistant: React.FC = () => {
       description: '职位的具体要求',
       required: true,
       placeholder: '请输入职位的技能要求、经验要求等'
+    },
+    {
+      id: 'resumeFile',
+      name: 'resumeFile',
+      type: 'file',
+      label: '简历文件',
+      description: '上传候选人简历，支持PDF、DOCX、TXT格式',
+      required: false,
+      accept: '.pdf,.docx,.txt'
     },
     {
       id: 'interview_type',

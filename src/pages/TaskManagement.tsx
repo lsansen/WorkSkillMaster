@@ -89,6 +89,15 @@ const TaskManagement: React.FC = () => {
           { 'calendar': '日历格式' },
           { 'prioritized': '优先级排序格式' }
         ]
+      },
+      {
+        id: 'referenceFile',
+        name: 'referenceFile',
+        type: 'file',
+        label: '参考文件',
+        description: '上传参考文件（TXT、MD格式）',
+        required: false,
+        accept: '.txt,.md'
       }
     ]
   };
@@ -195,14 +204,14 @@ ${index + 1}. **${task}**：${task}的详细描述
 ## 4. 时间安排
 
 ### 4.1 甘特图
-```
+\`\`\`
 [甘特图]
 ${tasks.map((task: string, index: number) => {
   const startDay = Math.floor(index * daysUntilDeadline / tasks.length) + 1;
   const endDay = Math.min(Math.floor((index + 1) * daysUntilDeadline / tasks.length), daysUntilDeadline);
   return `第${startDay}-${endDay}天：${task}`;
 }).join('\n')}
-```
+\`\`\`
 
 ### 4.2 每日计划
 ${Array.from({ length: daysUntilDeadline }, (_, i) => {
