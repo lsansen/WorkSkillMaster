@@ -16,30 +16,33 @@ import CustomSkills from './pages/CustomSkills'
 import RecruitmentAssistant from './pages/RecruitmentAssistant'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { OfflineProvider } from './contexts/OfflineContext'
+import { AIModelProvider } from './contexts/AIModelContext'
 
 function App() {
   return (
     <OfflineProvider>
       <ThemeProvider>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/history" element={<History />} />
-              <Route path="/models" element={<Models />} />
-              <Route path="/stats" element={<Stats />} />
-              <Route path="/custom-skills" element={<CustomSkills />} />
-              <Route path="/skill/email-master" element={<EmailMaster />} />
-              <Route path="/skill/meeting-notes-expert" element={<MeetingNotesExpert />} />
-              <Route path="/skill/report-generator" element={<ReportGenerator />} />
-              <Route path="/skill/ppt-outline" element={<PPTOutline />} />
-              <Route path="/skill/data-analyst" element={<DataAnalyst />} />
-              <Route path="/skill/task-management" element={<TaskManagement />} />
-              <Route path="/skill/recruitment-assistant" element={<RecruitmentAssistant />} />
-            </Routes>
-          </Layout>
-        </Router>
+        <AIModelProvider>
+          <Router>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/history" element={<History />} />
+                <Route path="/models" element={<Models />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/custom-skills" element={<CustomSkills />} />
+                <Route path="/skill/email-master" element={<EmailMaster />} />
+                <Route path="/skill/meeting-notes-expert" element={<MeetingNotesExpert />} />
+                <Route path="/skill/report-generator" element={<ReportGenerator />} />
+                <Route path="/skill/ppt-outline" element={<PPTOutline />} />
+                <Route path="/skill/data-analyst" element={<DataAnalyst />} />
+                <Route path="/skill/task-management" element={<TaskManagement />} />
+                <Route path="/skill/recruitment-assistant" element={<RecruitmentAssistant />} />
+              </Routes>
+            </Layout>
+          </Router>
+        </AIModelProvider>
       </ThemeProvider>
     </OfflineProvider>
   );

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import SkillPackageFramework from '../components/SkillPackage/SkillPackageFramework'
+import { useAI } from '../contexts/AIModelContext'
 
 const RecruitmentAssistant: React.FC = () => {
+  const { checkAIModelStatus } = useAI()
   const [formData, setFormData] = useState({
     position: '',
     requirements: '',
@@ -25,6 +27,14 @@ const RecruitmentAssistant: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // 检查AI模型状态
+    const hasModel = checkAIModelStatus()
+    if (!hasModel) {
+      alert('请先在设置页面配置AI模型，然后再使用此功能。')
+      return
+    }
+    
     setLoading(true)
     
     // 模拟AI生成过程

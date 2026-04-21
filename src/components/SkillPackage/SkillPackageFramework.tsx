@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { exportToText, exportToMarkdown, exportToDocx } from '../../utils/exportUtils'
+import { useAI } from '../../contexts/AIModelContext'
 
 interface SkillParameter {
   id: string
@@ -35,6 +36,7 @@ const SkillPackageFramework: React.FC<SkillPackageFrameworkProps> = ({
   onGenerate,
   isLoading = false
 }) => {
+  const { hasAIModel, checkAIModelStatus } = useAI()
   const [formData, setFormData] = useState<any>({})
   const [result, setResult] = useState<string>('')
   const [isGenerating, setIsGenerating] = useState(false)
@@ -92,6 +94,13 @@ const SkillPackageFramework: React.FC<SkillPackageFrameworkProps> = ({
     e.preventDefault()
     
     if (!validateForm()) {
+      return
+    }
+    
+    // 检查AI模型状态
+    const hasModel = checkAIModelStatus()
+    if (!hasModel) {
+      alert('请先在设置页面配置AI模型，然后再使用此功能。')
       return
     }
     
