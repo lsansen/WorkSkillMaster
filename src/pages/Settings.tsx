@@ -13,7 +13,9 @@ const Settings: React.FC = () => {
     temperature: localStorage.getItem('temperature') || '0.7',
     maxTokens: localStorage.getItem('maxTokens') || '1000',
     offlineMode: localStorage.getItem('offlineMode') === 'true',
-    privacyMode: localStorage.getItem('privacyMode') === 'true'
+    privacyMode: localStorage.getItem('privacyMode') === 'true',
+    ollamaModel: localStorage.getItem('ollamaModel') || 'llama3',
+    customOllamaModel: localStorage.getItem('customOllamaModel') || ''
   })
   
   const [apiKeys, setApiKeys] = useState({
@@ -314,6 +316,79 @@ const Settings: React.FC = () => {
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
               placeholder="http://localhost:11434"
             />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              本地模型选择
+            </label>
+            <select 
+              name="ollamaModel"
+              value={settings.ollamaModel || 'llama3'}
+              onChange={handleSettingChange}
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+            >
+              <option value="llama3">Llama 3 (推荐)</option>
+              <option value="llama2">Llama 2</option>
+              <option value="gemma">Gemma</option>
+              <option value="mistral">Mistral</option>
+              <option value="custom">自定义模型</option>
+            </select>
+          </div>
+          
+          {settings.ollamaModel === 'custom' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                自定义模型名称
+              </label>
+              <input 
+                type="text" 
+                name="customOllamaModel"
+                value={settings.customOllamaModel || ''}
+                onChange={handleSettingChange}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                placeholder="例如：llama3:70b"
+              />
+            </div>
+          )}
+          
+          <div className="mt-4">
+            <button 
+              onClick={() => {
+                // 一键安装Ollama
+                if (navigator.platform === 'win32') {
+                  window.open('https://ollama.com/download/windows');
+                } else if (navigator.platform === 'darwin') {
+                  window.open('https://ollama.com/download/mac');
+                } else {
+                  window.open('https://ollama.com/download/linux');
+                }
+              }}
+              className="w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              一键安装Ollama
+            </button>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">
+              点击后会打开Ollama官网下载页面
+            </p>
+          </div>
+          
+          <div className="mt-2">
+            <button 
+              onClick={() => {
+                // 启动Ollama服务（Windows）
+                if (navigator.platform === 'win32') {
+                  // 在Windows上启动Ollama
+                  alert('请手动启动Ollama应用程序');
+                } else {
+                  // 在Mac/Linux上启动Ollama
+                  alert('请在终端中运行: ollama serve');
+                }
+              }}
+              className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              启动Ollama服务
+            </button>
           </div>
         </div>
       </div>
